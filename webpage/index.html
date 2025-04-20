@@ -3,12 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lua Programming Language</title>
+    <title>Welcome to Lua</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Highlight.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/monokai-sublime.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </head>
 <body>
     <header>
-        <h1>Lua Programming Language</h1>
+        <h1>Welcome to Lua: A Lightweight and Powerful Scripting Language</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -22,8 +26,67 @@
 
     <main>
         <section>
-            <h2>Welcome to Lua</h2>
-            <p>This website provides an introduction to Lua, its history, key resources, example programs, and a comparison with other languages.</p>
+            <h2>What is Lua?</h2>
+            <p>Lua is a <strong>fast, lightweight, and embeddable scripting language</strong> designed for flexibility and ease of integration. 
+               Originally developed in <strong>1993</strong> at the <strong>Pontifical Catholic University of Rio de Janeiro</strong>, Lua has 
+               since become a popular choice for <strong>game development, embedded systems, and automation</strong>.
+            </p>
+        </section>
+
+        <section>
+            <h2>Technical Overview</h2>
+
+            <h3>Scoping</h3>
+            <p>Lua uses <strong>lexical scoping</strong>, meaning variable visibility is determined at the time of writing the code. It supports:</p>
+            <ul>
+                <li><strong>Global Scope:</strong> Variables without <code>local</code> are accessible throughout the program.</li>
+                <li><strong>Local Scope:</strong> Variables declared with <code>local</code> are confined to their block or function.</li>
+                <li><strong>Upvalues:</strong> Functions can capture variables from their enclosing scope, enabling closures.</li>
+            </ul>
+
+            <!-- Syntax-highlighted Lua example -->
+            <pre><code class="language-lua">
+x = 10  -- Global scope
+
+function example()
+    local y = 5  -- Local scope, only accessible inside `example`
+    print(x)  -- Can access global `x`
+    print(y)  -- Can access local `y`
+end
+
+example()
+print(y)  -- ERROR! `y` is not accessible outside the function
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Garbage Collection</h3>
+            <p>Lua uses an <strong>automatic mark-and-sweep garbage collector</strong>:</p>
+            <ul>
+                <li><strong>Mark Phase:</strong> Identifies reachable objects.</li>
+                <li><strong>Sweep Phase:</strong> Removes unmarked objects from memory.</li>
+                <li><strong>Generational Collection:</strong> Optimizes performance by categorizing objects based on lifespan.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Compilation & Interpretation</h3>
+            <p>Lua is an <strong>interpreted language</strong>, but it compiles scripts into <strong>bytecode</strong> before execution:</p>
+            <ul>
+                <li><strong>Compilation to Bytecode:</strong> Lua source code is converted into bytecode using the built-in compiler.</li>
+                <li><strong>Execution by Virtual Machine:</strong> The Lua interpreter runs the bytecode on the <strong>Lua Virtual Machine (Lua VM)</strong>.</li>
+                <li><strong>Just-in-Time Compilation:</strong> LuaJIT provides JIT compilation for significant performance improvements.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Explore Lua</h2>
+            <p>Ready to dive deeper into Lua? Check out these useful resources:</p>
+            <ul>
+                <li><a href="https://www.lua.org/docs.html" target="_blank">Official Documentation</a></li>
+                <li><a href="https://www.lua.org/manual/" target="_blank">Reference Manual</a></li>
+                <li><a href="https://www.bmc.com/blogs/lua-programming-language/" target="_blank">Beginner's Guide</a></li>
+            </ul>
         </section>
     </main>
 
