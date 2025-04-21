@@ -46,13 +46,103 @@
                     <td>Performance</td>
                     <td>Fast</td>
                     <td>Moderate</td>
-                    <td>Slower</td>
+                    <td>Slower (without JIT)</td>
+                </tr>
+                <tr>
+                    <td>Typing Discipline</td>
+                    <td>Dynamically Typed</td>
+                    <td>Dynamically Typed</td>
+                    <td>Statically Typed</td>
+                </tr>
+                <tr>
+                    <td>Paradigm</td>
+                    <td>Multi-paradigm</td>
+                    <td>Multi-paradigm</td>
+                    <td>Object-Oriented</td>
+                </tr>
+                <tr>
+                    <td>First-Class Functions</td>
+                    <td>✅</td>
+                    <td>✅</td>
+                    <td>❌ (via objects/interfaces)</td>
+                </tr>
+                <tr>
+                    <td>Error Handling</td>
+                    <td><code>pcall</code> / <code>error</code></td>
+                    <td><code>try</code> / <code>except</code></td>
+                    <td><code>try</code> / <code>catch</code></td>
+                </tr>
+                <tr>
+                    <td>Standard Library Size</td>
+                    <td>Small</td>
+                    <td>Large</td>
+                    <td>Very Large</td>
+                </tr>
+                <tr>
+                    <td>Garbage Collection</td>
+                    <td>Yes (Incremental GC)</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Memory Management</td>
+                    <td>Automatic</td>
+                    <td>Automatic</td>
+                    <td>Automatic</td>
+                </tr>
+                <tr>
+                    <td>Compilation</td>
+                    <td>Bytecode (interpreted/JIT via LuaJIT)</td>
+                    <td>Bytecode (interpreted)</td>
+                    <td>Bytecode (JVM)</td>
+                </tr>
+                <tr>
+                    <td>Concurrency Model</td>
+                    <td>Coroutines</td>
+                    <td>Threads / asyncio</td>
+                    <td>Threads (multithreading)</td>
+                </tr>
+                <tr>
+                    <td>Tooling / IDE Support</td>
+                    <td>Limited</td>
+                    <td>Extensive</td>
+                    <td>Extensive</td>
+                </tr>
+                <tr>
+                    <td>Learning Curve</td>
+                    <td>Gentle</td>
+                    <td>Gentle</td>
+                    <td>Steeper</td>
+                </tr>
+                <tr>
+                    <td>Cross-Platform</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>C / C++ Interop</td>
+                    <td>Excellent (native support)</td>
+                    <td>Moderate (<code>ctypes</code> / <code>cffi</code>)</td>
+                    <td>Complex (<code>JNI</code>)</td>
+                </tr>
+                <tr>
+                    <td>Mobile Support</td>
+                    <td>Via integrations (e.g. Corona SDK)</td>
+                    <td>Yes</td>
+                    <td>Yes (Android)</td>
                 </tr>
                 <tr>
                     <td>Use Case</td>
                     <td>Game Engines, Embedded Systems</td>
-                    <td>General Purpose</td>
-                    <td>Enterprise Applications</td>
+                    <td>General Purpose, Scripting</td>
+                    <td>Enterprise Applications, Android</td>
+                </tr>
+                <tr>
+                    <td>Community Size</td>
+                    <td>Smaller</td>
+                    <td>Large</td>
+                    <td>Large</td>
                 </tr>
             </table>
         </section>
