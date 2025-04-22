@@ -55,6 +55,11 @@ local number = 15
 
 -- %X displays numbers in hexadecimal format.
 print(string.format("%X", number))
+
+--[[
+Expected output:
+F
+]]
 </code></pre>
 <h4>Running</h4>
 <pre><code class="language-bash" class="language-bash">$ lua formatted-output.lua
@@ -72,11 +77,11 @@ end
 
 --[[
 Expected output:
-1
-2
-3
-4
-5
+Iteration: 1
+Iteration: 2
+Iteration: 3
+Iteration: 4
+Iteration: 5
 ]]
 </code></pre>
 <h4>Running</h4>
@@ -103,9 +108,9 @@ end
 
 --[[
 Expected output:
-a
-b
-c
+1 a
+2 b
+3 c
 ]]
 </code></pre>
 <h4>Running</h4>
@@ -195,7 +200,7 @@ print(sum(1, 2, 3))
 
 --[[
 Expected output:
-5
+6
 ]]
 </code></pre>
 <h4>Running</h4>
@@ -551,7 +556,7 @@ $ ls
 CMakeLists.txt blink
 </code></pre>
 <p>Copy the <code>mlua_import.cmake</code> file from the MicroLua repository into this <code>blink_example</code> folder. That file tells CMake where to find MicroLua on our system when it comes time to build the project.</p>
-<pre><code class="language-cmake"># CMakeLists.txt
+<pre><code class="language-bash"># CMakeLists.txt
 
 # Ensure we meet the minimum required version of CMake.
 cmake_minimum_required(VERSION 3.24)
@@ -593,7 +598,7 @@ add_subdirectory(blink)
 <pre><code class="language-bash">$ ls blink
 CMakeLists.txt blink.lua
 </code></pre>
-<pre><code class="language-cmake"># blink/CMakeLists.txt
+<pre><code class="language-bash"># blink/CMakeLists.txt
 
 # Create a new module based on the blink.lua file.
 mlua_add_lua_modules(mod_blink blink.lua)
