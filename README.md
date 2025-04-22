@@ -3,7 +3,7 @@ A simple chat service implemented in **Lua 5.3** using **LuaSocket** for client-
 
 ## **Dependencies**
 - **Lua 5.3**
-- **LuaSocket** (`lua5.3-socket` for Ubuntu/Linux)
+- **LuaSocket** (Ubuntu/Linux)
 
 ## **Installation**
 ### **Install Lua 5.3**
