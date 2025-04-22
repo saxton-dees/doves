@@ -6,6 +6,7 @@ server:settimeout(0)  -- Set the server to non-blocking mode to handle multiple 
 print("Server started on port 8080...")  -- Notify that the server is running
 
 local clients = {}  -- Store connected clients in a table
+local chat = {} -- Store all past messages
 
 -- Function to accept new client connections
 function acceptConnection()
@@ -14,6 +15,16 @@ function acceptConnection()
         client:settimeout(0)  -- Set the client to non-blocking mode for smooth communication
         table.insert(clients, client)  -- Add the client to the list of active connections
         print("New client connected!")  -- Notify that a new client has joined
+        printAllClients(clients)
+    end
+end
+
+-- Function to print all connected clients
+function printAllClients(clients)
+    print("\n_______Online Clients_______")
+    for i, client in ipairs(clients) do
+        local ip, port = client:getpeername()
+        print("Client " .. i .."\tIP:" .. tostring(ip) .. "\nPort:" .. tostring(port))
     end
 end
 

@@ -21,11 +21,24 @@ function processInput(input)
     end
 end
 
+-- Function to check server for new messages
+function fetchServerMessages()
+    local clients = socket.select({client}, nil, 0.1)
+        for _, client in ipairs(clients) do
+            local message, err = client:receive()
+            if not err then
+                print("Broadcast: " .. message .. "\n")
+            end
+        end
+end
+
 -- Inform user of chat usage
 print("Connected to server. Type /send <message> to chat.")
 
 -- Main loop to handle user input and interaction
 while true do
+    fetchServerMessages()
+
     local input = io.read()  -- Read user input from console
     local result = processInput(input)  -- Process input command
 
@@ -37,5 +50,5 @@ while true do
             client:close()  -- Close client connection
             break  -- Exit the loop
         end
-    end
+    end    
 end
