@@ -24,298 +24,298 @@
 <p>To run any of the examples, you need to have Lua installed on your system. You can refer to the Installation section of this website.</p>
 <p>In the case of the Fork (Calling C from Lua) example, you need a C compiler, like the GNU C Compiler (GCC) and a UNIX-like operating system. If you want to run the example on another operating system like Windows or MacOS, then my challenge to you is to adjust the example to make it work for your system.</p>
 <p>In the case of the Blinking LED (Embedded Lua) example, you need a cross compiler that can compile binaries for ARM architectures (<code>arm-none-eabi</code>).</p>
-<h4>Input/Output</h4>
+<h2>Input/Output</h2>
 <p>Lua has very simple functions for receiving input and writing output.</p>
-<h5>Simple Output</h5>
+<h3>Simple Output</h3>
 <p>The function to print to <code>stdout</code> is built in. There's no need to import any external modules like in C or Java.</p>
-<h6>Code</h6>
-<pre><code><span>-- simple-output.lua</span>
+<h4>Code</h4>
+<pre><code class="language-lua" class="language-lua">-- simple-output.lua
 
-<span>-- No other imports.</span>
+-- No other imports.
 
-<span>print</span><span>(</span><span>"Hello, world!"</span><span>)</span>
+print("Hello, world!")
 
-<span>--[[
+--[[
 Expected output:
 Hello, world!
-]]</span>
+]]
 </code></pre>
-<h6>Running</h6>
-<pre><code>$ lua simple-output.lua
+<h4>Running</h4>
+<pre><code class="language-bash" class="language-bash">$ lua simple-output.lua
 </code></pre>
-<h5>Formatted Output</h5>
+<h3>Formatted Output</h3>
 <p>The <code>string.format()</code> function can be used to create formatted strings from other data types.</p>
-<h6>Code</h6>
-<pre><code><span>-- formatted-output.lua</span>
+<h4>Code</h4>
+<pre><code class="language-lua">-- formatted-output.lua
 
-<span>local</span> number <span>=</span> <span>15</span>
+local number = 15
 
-<span>-- %X displays numbers in hexadecimal format.</span>
-<span>print</span><span>(</span>string<span>.</span><span>format</span><span>(</span><span>"%X"</span><span>,</span> number<span>)</span><span>)</span>
+-- %X displays numbers in hexadecimal format.
+print(string.format("%X", number))
 </code></pre>
-<h6>Running</h6>
-<pre><code>$ lua formatted-output.lua
+<h4>Running</h4>
+<pre><code class="language-bash" class="language-bash">$ lua formatted-output.lua
 </code></pre>
-<h4>Loops</h4>
-<h5>Numeric Loops</h5>
+<h2>Loops</h2>
+<h3>Numeric Loops</h3>
 <p>The syntax of numeric loops is very simple.</p>
-<h6>Code</h6>
-<pre><code><span>-- numeric-loops.lua</span>
+<h4>Code</h4>
+<pre><code class="language-lua" class="language-lua">-- numeric-loops.lua
 
-<span>-- The third 1 is the step, or by how much i changes each iteration.</span>
-<span>for</span> i <span>=</span> <span>1</span><span>,</span> <span>5</span><span>,</span> <span>1</span> <span>do</span>
-	<span>print</span><span>(</span><span>"Iteration:"</span><span>,</span> i<span>)</span>
-<span>end</span>
+-- The third 1 is the step, or by how much i changes each iteration.
+for i = 1, 5, 1 do
+	print("Iteration:", i)
+end
 
-<span>--[[
+--[[
 Expected output:
 1
 2
 3
 4
 5
-]]</span>
+]]
 </code></pre>
-<h6>Running</h6>
-<pre><code>$ lua numeric-loops.lua
+<h4>Running</h4>
+<pre><code class="language-bash" class="language-bash">$ lua numeric-loops.lua
 </code></pre>
-<h5>Generic Loops</h5>
+<h3>Generic Loops</h3>
 <p>The other use for loops in Lua is iterating over data. Again, the syntax for doing so is very simple. This is also where Lua's most versatile data structure can be introduced: tables.</p>
-<h6>Code</h6>
-<pre><code><span>--[[
+<h4>Code</h4>
+<pre><code class="language-lua">--[[
 Arrays in Lua are really just tables with key-value pairs. The keys and the values can be of different data types. By convention, keys start at 1 and increment by one (unlike other languages which typically start at index 0).
 
 Another language with an array data type that behaves in almost the exact same way as Lua is PHP, so if you're familiar with PHP then this will make 
-]]</span>
-a <span>=</span> <span>{</span><span>"a"</span><span>,</span> <span>"b"</span><span>,</span> <span>"c"</span><span>}</span> <span>-- Equivalent to {[1] = "a", [2] = "b", [3] = "c"}</span>
+]]
+a = {"a", "b", "c"} -- Equivalent to {[1] = "a", [2] = "b", [3] = "c"}
 
-<span>--[[
+--[[
 Here, the ipairs() function is a stateless iterator. Iterators are typically implemented as closures in Lua.
 
 You can read all about stateless iterators like ipairs() here: https://www.lua.org/pil/7.3.html.
-]]</span>
-<span>for</span> key<span>,</span> value <span>in</span> <span>ipairs</span><span>(</span>a<span>)</span> <span>do</span>
-    <span>print</span><span>(</span>key<span>,</span> value<span>)</span>
-<span>end</span>
+]]
+for key, value in ipairs(a) do
+    print(key, value)
+end
 
-<span>--[[
+--[[
 Expected output:
 a
 b
 c
-]]</span>
+]]
 </code></pre>
-<h6>Running</h6>
-<pre><code>$ lua generic-loops.lua
+<h4>Running</h4>
+<pre><code class="language-bash">$ lua generic-loops.lua
 </code></pre>
-<h4>Functions</h4>
+<h2>Functions</h2>
 <p>Functions are first-class in Lua, meaning they can be stored in variables, passed to functions, and returned from functions like any other variable.</p>
-<h5>Simple Function</h5>
+<h3>Simple Function</h3>
 <p>The most basic usage of a function is, of course, defining it and calling it.</p>
-<h6>Code</h6>
-<pre><code><span>-- A simple greet function.</span>
-<span>function</span> <span>greet</span> <span>(</span>name<span>)</span>
-	<span>-- Notice how the operator to concatenate strings is ..</span>
-	<span>print</span><span>(</span><span>"Hello, "</span> <span>..</span> name <span>..</span> <span>"!"</span><span>)</span>
-<span>end</span>
+<h4>Code</h4>
+<pre><code class="language-lua">-- A simple greet function.
+function greet (name)
+	-- Notice how the operator to concatenate strings is ..
+	print("Hello, " .. name .. "!")
+end
 
-<span>greet</span><span>(</span><span>"Saxton"</span><span>)</span>
+greet("Saxton")
 
-<span>--[[
+--[[
 Expected output:
 Hello, Saxton!
-]]</span>
+]]
 </code></pre>
-<h6>Running</h6>
-<pre><code>$ lua simple-function.lua
+<h4>Running</h4>
+<pre><code class="language-bash">$ lua simple-function.lua
 </code></pre>
-<h5>Custom Iterator</h5>
+<h3>Custom Iterator</h3>
 <p>This is where the real power of Lua's functions is shown. This is an example of a custom iterator being implemented as a closure. This iterator can be used in generic loops.</p>
-<h6>Code</h6>
-<pre><code><span>-- custom-iterator.lua</span>
+<h4>Code</h4>
+<pre><code class="language-lua">-- custom-iterator.lua
 
-<span>-- This is an array-like table of three numbers.</span>
-a <span>=</span> <span>{</span><span>1</span><span>,</span> <span>2</span><span>,</span> <span>3</span><span>}</span>
+-- This is an array-like table of three numbers.
+a = {1, 2, 3}
 
-<span>--[[
+--[[
 A stateless iterator which iterates over an array backwards.
 
 Iterators return three things:
 1. The actual function which iterates through an array. 
 2. The invariant state (what doesn't change from iteration to iteration).
 3. The initial value of our control variable.
-]]</span>
-<span>function</span> <span>rpairs</span> <span>(</span>a<span>)</span>
-    <span>-- A closure is used to get the next value of the array.</span>
-    <span>return</span> <span>function</span> <span>(</span>_a<span>,</span> i<span>)</span>
-        i <span>=</span> i <span>-</span> <span>1</span>
-        <span>local</span> v <span>=</span> _a<span>[</span>i<span>]</span>
-        <span>if</span> v <span>then</span>
-            <span>return</span> i<span>,</span> v
-        <span>end</span>
-    <span>end</span><span>,</span> a<span>,</span> <span>#</span>a <span>+</span> <span>1</span>
-<span>end</span>
+]]
+function rpairs (a)
+    -- A closure is used to get the next value of the array.
+    return function (_a, i)
+        i = i - 1
+        local v = _a[i]
+        if v then
+            return i, v
+        end
+    end, a, #a + 1
+end
 
-<span>-- A generic loop uses the rpairs() iterator to iterate through the table in reverse order.</span>
-<span>for</span> _<span>,</span> value <span>in</span> <span>rpairs</span><span>(</span>a<span>)</span> <span>do</span>
-    <span>print</span><span>(</span>value<span>)</span>
-<span>end</span>
+-- A generic loop uses the rpairs() iterator to iterate through the table in reverse order.
+for _, value in rpairs(a) do
+    print(value)
+end
 
-<span>--[[
+--[[
 Expected output:
 3
 2
 1
-]]</span>
+]]
 </code></pre>
-<h6>Running</h6>
-<pre><code>$ lua custom-iterator.lua
+<h4>Running</h4>
+<pre><code class="language-bash">$ lua custom-iterator.lua
 </code></pre>
-<h5>Variable Arguments 1</h5>
+<h3>Variable Arguments 1</h3>
 <p>Functions can be defined to take a variable number of arguments. You refer to that list of arguments with <code>...</code>.</p>
-<h6>Code</h6>
-<pre><code><span>-- variable-arguments-1.lua</span>
+<h4>Code</h4>
+<pre><code class="language-lua">-- variable-arguments-1.lua
 
-<span>-- Add up a variable list of arguments (numbers).</span>
-<span>function</span> <span>sum</span> <span>(</span><span>...</span><span>)</span>
-	<span>local</span> total <span>=</span> <span>0</span>
+-- Add up a variable list of arguments (numbers).
+function sum (...)
+	local total = 0
 
-	<span>-- Create a table using the list of arguments and iterate through it.</span>
-	<span>for</span> _<span>,</span> v <span>in</span> <span>ipairs</span><span>(</span><span>{</span><span>...</span><span>}</span><span>)</span> <span>do</span>
-		total <span>=</span> total <span>+</span> v
-	<span>end</span>
+	-- Create a table using the list of arguments and iterate through it.
+	for _, v in ipairs({...}) do
+		total = total + v
+	end
 	
-	<span>return</span> total
-<span>end</span>
+	return total
+end
 
-<span>print</span><span>(</span><span>sum</span><span>(</span><span>1</span><span>,</span> <span>2</span><span>,</span> <span>3</span><span>)</span><span>)</span>
+print(sum(1, 2, 3))
 
-<span>--[[
+--[[
 Expected output:
 5
-]]</span>
+]]
 </code></pre>
-<h6>Running</h6>
-<pre><code>$ lua variable-arguments-1.lua
+<h4>Running</h4>
+<pre><code class="language-bash">$ lua variable-arguments-1.lua
 </code></pre>
-<h5>Variable Arguments 2</h5>
+<h3>Variable Arguments 2</h3>
 <p>If you want to get a specific argument at a certain position, you can use the built-in <code>select()</code> function.</p>
-<h6>Code</h6>
-<pre><code><span>-- variable-arguments-2.lua</span>
+<h4>Code</h4>
+<pre><code class="language-lua">-- variable-arguments-2.lua
 
-<span>-- Get the third argument passed to the function.</span>
-<span>function</span> <span>third</span> <span>(</span><span>...</span><span>)</span>
-	<span>-- # can be used to get the number of arguments passed.</span>
-	<span>if</span> <span>select</span><span>(</span><span>"#"</span><span>,</span> <span>...</span><span>)</span> <span>&gt;=</span> <span>3</span> <span>then</span>
-		<span>return</span> <span>select</span><span>(</span><span>3</span><span>,</span> <span>...</span><span>)</span>
-	<span>else</span>
-		<span>return</span> <span>nil</span>
-	<span>end</span>
-<span>end</span>
+-- Get the third argument passed to the function.
+function third (...)
+	-- # can be used to get the number of arguments passed.
+	if select("#", ...) &gt;= 3 then
+		return select(3, ...)
+	else
+		return nil
+	end
+end
 
-<span>print</span><span>(</span><span>third</span><span>(</span><span>"a"</span><span>,</span> <span>"b"</span><span>,</span> <span>"c"</span><span>,</span> <span>"d"</span><span>)</span><span>)</span>
+print(third("a", "b", "c", "d"))
 
-<span>--[[
+--[[
 Expected output:
 c
-]]</span>
+]]
 </code></pre>
-<h6>Running</h6>
-<pre><code>$ lua variable-arguments-2.lua
+<h4>Running</h4>
+<pre><code class="language-bash">$ lua variable-arguments-2.lua
 </code></pre>
-<h5>"Overloaded" Function</h5>
+<h3>"Overloaded" Function</h3>
 <p>Lua technically doesn't support overloaded functions. However, you can still call methods even if you don't use the same number of arguments than what the function is defined with. Any missing arguments are set to <code>nil</code>, which can be checked in the function body with conditional logic. So, you can emulate them.</p>
-<h6>Code</h6>
-<pre><code><span>-- overloaded-function.lua</span>
+<h4>Code</h4>
+<pre><code class="language-lua">-- overloaded-function.lua
 
-<span>-- Revisiting the greet function from before.</span>
-<span>function</span> <span>greet</span> <span>(</span>name<span>,</span> time<span>)</span>
-	<span>-- Only false and nil are falsy. 0 and empty strings are considered true.</span>
-	<span>if</span> name <span>and</span> time <span>then</span>
-		<span>print</span><span>(</span><span>"Good "</span> <span>..</span> time <span>..</span> <span>", "</span> <span>..</span> name <span>..</span> <span>"!"</span><span>)</span>
-	<span>elseif</span> name <span>then</span>
-		<span>print</span><span>(</span><span>"Hello, "</span> <span>..</span> name <span>..</span> <span>"!"</span><span>)</span>
-	<span>else</span>
-		<span>print</span><span>(</span><span>"Hey there!"</span><span>)</span>
-	<span>end</span>
-<span>end</span>
+-- Revisiting the greet function from before.
+function greet (name, time)
+	-- Only false and nil are falsy. 0 and empty strings are considered true.
+	if name and time then
+		print("Good " .. time .. ", " .. name .. "!")
+	elseif name then
+		print("Hello, " .. name .. "!")
+	else
+		print("Hey there!")
+	end
+end
 
-<span>greet</span><span>(</span><span>)</span>
-<span>greet</span><span>(</span><span>"Alice"</span><span>)</span>
-<span>greet</span><span>(</span><span>"Alice"</span><span>,</span> <span>"morning"</span><span>)</span>
+greet()
+greet("Alice")
+greet("Alice", "morning")
 
-<span>--[[
+--[[
 Expected output:
 Hey there!
 Hello, Alice!
 Good morning, Alice!
-]]</span>
+]]
 </code></pre>
-<h6>Running</h6>
-<pre><code>$ lua overloaded-function.lua
+<h4>Running</h4>
+<pre><code class="language-bash">$ lua overloaded-function.lua
 </code></pre>
-<h4>Object-Oriented Programming</h4>
+<h2>Object-Oriented Programming</h2>
 <p>Lua is sort of a mix between C, Go, and Java when it comes to classes. There's technically no class data structure in the language, just like in C or Go. But, there are still features in the language which help in doing object-oriented programming.</p>
-<h5>Simple Class</h5>
+<h3>Simple Class</h3>
 <p>This is an example of a "class" in Lua which is a translated version of the Person "class" from the Go example. A very important feature of Lua is introduced with this example: metatables.</p>
-<h6>Code</h6>
-<pre><code><span>-- simple-class.lua</span>
+<h4>Code</h4>
+<pre><code class="language-lua">-- simple-class.lua
 
-<span>-- Define a new table for a Person data type.</span>
-Person <span>=</span> <span>{</span><span>}</span>
+-- Define a new table for a Person data type.
+Person = {}
 
-<span>-- Set up the inheritance for instances of Person.</span>
-Person<span>.</span>__index <span>=</span> Person
+-- Set up the inheritance for instances of Person.
+Person.__index = Person
 
-<span>-- Constructor for a new Person.</span>
-<span>function</span> Person<span>:</span><span>new</span> <span>(</span>name<span>,</span> age<span>)</span>
-    <span>local</span> obj <span>=</span> <span>setmetatable</span><span>(</span><span>{</span><span>}</span><span>,</span> Person<span>)</span>
+-- Constructor for a new Person.
+function Person:new (name, age)
+    local obj = setmetatable({}, Person)
 
-    obj<span>.</span>name <span>=</span> name
-    obj<span>.</span>age <span>=</span> age
+    obj.name = name
+    obj.age = age
 
-    <span>return</span> obj
-<span>end</span>
+    return obj
+end
 
-<span>--[[
+--[[
 Getter for the name attribute.
 
 This syntax for defining a function is equivalent to this:
 Person["name"] = function (Person) ... end
 
 The table itself is passed as a hidden parameter to the function.
-]]</span>
-<span>function</span> Person<span>:</span><span>get_name</span> <span>(</span><span>)</span>
-    <span>return</span> self<span>.</span>name
-<span>end</span>
+]]
+function Person:get_name ()
+    return self.name
+end
 
-<span>-- Getter for the age attribute.</span>
-<span>function</span> Person<span>:</span><span>get_age</span> <span>(</span><span>)</span>
-    <span>return</span> self<span>.</span>age
-<span>end</span>
+-- Getter for the age attribute.
+function Person:get_age ()
+    return self.age
+end
 
-<span>-- Custom function for representing our "class" as a string.</span>
-<span>function</span> Person<span>:</span><span>__tostring</span> <span>(</span><span>)</span>
-    <span>return</span> self<span>.</span>name <span>..</span> <span>" "</span> <span>..</span> self<span>.</span>age
-<span>end</span>
+-- Custom function for representing our "class" as a string.
+function Person:__tostring ()
+    return self.name .. " " .. self.age
+end
 
-<span>-- Create a new Person.</span>
-p <span>=</span> Person<span>:</span><span>new</span><span>(</span><span>"Ana"</span><span>,</span> <span>20</span><span>)</span>
-<span>print</span><span>(</span>p<span>:</span><span>get_name</span><span>(</span><span>)</span><span>)</span>
-<span>print</span><span>(</span>p<span>:</span><span>get_age</span><span>(</span><span>)</span><span>)</span>
-<span>print</span><span>(</span>p<span>)</span>
+-- Create a new Person.
+p = Person:new("Ana", 20)
+print(p:get_name())
+print(p:get_age())
+print(p)
 
-<span>--[[
+--[[
 Expected output:
 Ana
 20
 Ana 20
-]]</span><span>--</span>
+]]--
 </code></pre>
-<h6>Running</h6>
-<pre><code>$ lua simple-class.lua
+<h4>Running</h4>
+<pre><code class="language-bash">$ lua simple-class.lua
 </code></pre>
-<h6>A Short Explanation of Metatables</h6>
+<h4>A Short Explanation of Metatables</h4>
 <p>There are two lines which make this sort of class inheritance possible:</p>
 <ol>
 <li><code>Person.__index = Person</code>.</li>
@@ -331,81 +331,81 @@ Ana 20
 <li>A function (metamethod) - The interpreter will call it and pass the instance of the original table and the key being searched as arguments.</li>
 </ul>
 <p>This brings us back to the first line of code. By assigning the <code>__index</code> metafield of the <code>Person</code> table to itself, we're allowing any tables which have <code>Person</code> set as their metatable to access the fields (and their associated values or functions) of <code>Person</code>. </p>
-<h4>Complex Examples</h4>
+<h2>Complex Examples</h2>
 <p>These examples take the concepts demonstrated in the previous examples and combine them into more complex programs. </p>
-<h5>Hexdump</h5>
+<h3>Hexdump</h3>
 <p>This is a basic hexdump program. It takes the contents of a file through <code>stdin</code> and prints the hexadecimal representation of it to the terminal.</p>
-<h6>Code</h6>
-<pre><code><span>-- hexdump.lua</span>
+<h4>Code</h4>
+<pre><code class="language-lua">-- hexdump.lua
 
-<span>-- This is the custom stateless iterator from before.</span>
-<span>function</span> <span>rpairs</span> <span>(</span>a<span>)</span>
-    <span>return</span> <span>function</span> <span>(</span>_a<span>,</span> i<span>)</span>
-        i <span>=</span> i <span>-</span> <span>1</span>
-        <span>local</span> v <span>=</span> _a<span>[</span>i<span>]</span>
-        <span>if</span> v <span>then</span>
-            <span>return</span> i<span>,</span> v
-        <span>end</span>
-    <span>end</span><span>,</span> a<span>,</span> <span>#</span>a <span>+</span> <span>1</span>
-<span>end</span>
+-- This is the custom stateless iterator from before.
+function rpairs (a)
+    return function (_a, i)
+        i = i - 1
+        local v = _a[i]
+        if v then
+            return i, v
+        end
+    end, a, #a + 1
+end
 
-<span>-- Get the content from stdin.</span>
-<span>local</span> stdin <span>=</span> io<span>.</span><span>read</span><span>(</span><span>"*all"</span><span>)</span>
+-- Get the content from stdin.
+local stdin = io.read("*all")
 
-<span>-- Specify the number of columns and the group size.</span>
-<span>local</span> columns <span>=</span> <span>8</span>
-<span>local</span> group_size <span>=</span> <span>2</span>
+-- Specify the number of columns and the group size.
+local columns = 8
+local group_size = 2
 
-<span>-- If the group size is even, we need to make the ending offset odd.</span>
-<span>local</span> ending_offset <span>=</span> <span>0</span>
-<span>if</span> group_size <span>%</span> <span>2</span> <span>==</span> <span>0</span> <span>then</span>
-    ending_offset <span>=</span> <span>1</span>
-<span>end</span>
+-- If the group size is even, we need to make the ending offset odd.
+local ending_offset = 0
+if group_size % 2 == 0 then
+    ending_offset = 1
+end
 
-<span>-- Loop through the file group_size characters at a time.</span>
-<span>for</span> i <span>=</span> group_size<span>,</span> <span>#</span>stdin <span>+</span> ending_offset<span>,</span> group_size <span>do</span>
+-- Loop through the file group_size characters at a time.
+for i = group_size, #stdin + ending_offset, group_size do
 
-    <span>-- Print the current position within the file.</span>
-    <span>if</span> <span>(</span>i <span>-</span> group_size<span>)</span> <span>%</span> <span>(</span>group_size <span>*</span> columns<span>)</span> <span>==</span> <span>0</span> <span>then</span>
-        <span>if</span> <span>(</span>i <span>-</span> group_size<span>)</span> <span>&gt;</span> group_size <span>then</span>
-            <span>print</span><span>(</span><span>""</span><span>)</span>
-        <span>end</span>
+    -- Print the current position within the file.
+    if (i - group_size) % (group_size * columns) == 0 then
+        if (i - group_size) &gt; group_size then
+            print("")
+        end
 
-        io<span>.</span><span>write</span><span>(</span>string<span>.</span><span>format</span><span>(</span><span>"%07X "</span><span>,</span> i <span>-</span> group_size<span>)</span><span>)</span>
-    <span>end</span>
+        io.write(string.format("%07X ", i - group_size))
+    end
 
-    <span>-- Get the current character and previous character at the current position.</span>
-    <span>local</span> characters <span>=</span> <span>{</span><span>}</span>
-    <span>for</span> j <span>=</span> <span>1</span><span>,</span> group_size <span>do</span>
-        <span>local</span> character_position <span>=</span> i <span>-</span> group_size <span>+</span> j
-        <span>local</span> character <span>=</span> string<span>.</span><span>byte</span><span>(</span>stdin<span>:</span><span>sub</span><span>(</span>character_position<span>,</span> character_position<span>)</span><span>)</span>
-        <span>if</span> character <span>then</span>
-            characters<span>[</span>j<span>]</span> <span>=</span> character
-        <span>else</span>
-            characters<span>[</span>j<span>]</span> <span>=</span> <span>0</span>
-        <span>end</span>
-    <span>end</span>
+    -- Get the current character and previous character at the current position.
+    local characters = {}
+    for j = 1, group_size do
+        local character_position = i - group_size + j
+        local character = string.byte(stdin:sub(character_position, character_position))
+        if character then
+            characters[j] = character
+        else
+            characters[j] = 0
+        end
+    end
 
-    <span>-- Print the characters as a hexadecimal group.</span>
-    <span>for</span> _<span>,</span> character <span>in</span> <span>rpairs</span><span>(</span>characters<span>)</span> <span>do</span>
-        io<span>.</span><span>write</span><span>(</span>string<span>.</span><span>format</span><span>(</span><span>"%02X"</span><span>,</span> character<span>)</span><span>)</span>
-    <span>end</span>
-    io<span>.</span><span>write</span><span>(</span><span>" "</span><span>)</span>
-<span>end</span>
+    -- Print the characters as a hexadecimal group.
+    for _, character in rpairs(characters) do
+        io.write(string.format("%02X", character))
+    end
+    io.write(" ")
+end
 </code></pre>
-<h6>Running</h6>
+<h4>Running</h4>
 <p>If you have the actual hexdump program installed on your system, you can verify its accuracy by running and comparing the output of both.</p>
-<pre><code>$ hexdump hexdump.lua
-0000000 2d0a 202d <span>6568</span> <span>6478</span> 6d75 2e70 756c 0a61
-0000010 2d0a 202d <span>6854</span> <span>7369</span> <span>6920</span> <span>2073</span> <span>6874</span> <span>2065</span>
-<span>..</span>.
+<pre><code class="language-bash">$ hexdump hexdump.lua
+0000000 2d0a 202d 6568 6478 6d75 2e70 756c 0a61
+0000010 2d0a 202d 6854 7369 6920 2073 6874 2065
+...
 
-$ <span>cat</span> hexdump.lua <span>|</span> lua hexdump.lua
-0000000 2D0A 202D <span>6568</span> <span>6478</span> 6D75 2E70 756C 0A61 
-0000010 2D0A 202D <span>6854</span> <span>7369</span> <span>6920</span> <span>2073</span> <span>6874</span> <span>2065</span>
-<span>..</span>.
+$ cat hexdump.lua | lua hexdump.lua
+0000000 2D0A 202D 6568 6478 6D75 2E70 756C 0A61 
+0000010 2D0A 202D 6854 7369 6920 2073 6874 2065
+...
 </code></pre>
-<h5>Fork (Calling C from Lua)</h5>
+<h3>Fork (Calling C from Lua)</h3>
 <p>To write C code that can be interacted with from Lua, all you need to do is include the Lua header files in your C program, include the necessary functions in your C code, and compile it as a shared library. You can then import that shared library in your Lua script using <code>require</code> as if it was written in Lua.</p>
 <p>In this example, there's a C function named <code>lua_fork</code> which wraps around the <code>fork()</code> function of the POSIX operating system API (<code>unistd.h</code>). Calling <code>fork()</code> duplicates the current process and makes it a child process. The value of <code>fork()</code> is different for the parent process and the child process, allowing you to write code that only executes in parent process and / or the child.</p>
 <p>The <code>fork()</code> function isn't available in Lua because:</p>
@@ -413,107 +413,107 @@ $ <span>cat</span> hexdump.lua <span>|</span> lua hexdump.lua
 <li>Lua is meant to be portable - Low-level functions that aren't available on all operating systems, like <code>fork()</code>, make code less portable.</li>
 <li>Lua is meant to be extended - For any primitives or low-level functionality you need, the creators of Lua expected you to use C.</li>
 </ul>
-<h6>Code</h6>
-<pre><code>$ <span>ls</span>
+<h4>Code</h4>
+<pre><code class="language-bash">$ ls
 Makefile example.lua lua_fork.c
 </code></pre>
-<pre><code><span># Makefile</span>
+<pre><code class="language-make"># Makefile
 
-<span># Build configuration. Replace with values relevant to your system.</span>
-CC <span>=</span> gcc
-CFLAGS <span>=</span> -O2 -fPIC -shared
-INCLUDES <span>=</span> /usr/<span>include</span>/lua5.4
-MODULE_NAME <span>=</span> lua_fork
-SCRIPT_NAME <span>=</span> example
+# Build configuration. Replace with values relevant to your system.
+CC = gcc
+CFLAGS = -O2 -fPIC -shared
+INCLUDES = /usr/include/lua5.4
+MODULE_NAME = lua_fork
+SCRIPT_NAME = example
 
-<span>.PHONY</span><span>:</span> run
+.PHONY: run
 
-<span># Run the Lua script.</span>
-<span>run</span><span>:</span> lua_fork.so
-	lua <span>$</span><span>(</span>SCRIPT_NAME<span>)</span>.lua
+# Run the Lua script.
+run: lua_fork.so
+	lua $(SCRIPT_NAME).lua
 
-<span># Build the shared library.</span>
-<span>lua_fork.so</span><span>:</span> lua_fork.c
-	<span>$</span><span>(</span>CC<span>)</span> <span>$</span><span>(</span>CFLAGS<span>)</span> -o <span>$</span><span>(</span>MODULE_NAME<span>)</span>.so <span>$</span><span>(</span>MODULE_NAME<span>)</span>.c -I<span>$</span><span>(</span>INCLUDES<span>)</span>
+# Build the shared library.
+lua_fork.so: lua_fork.c
+	$(CC) $(CFLAGS) -o $(MODULE_NAME).so $(MODULE_NAME).c -I$(INCLUDES)
 </code></pre>
-<pre><code><span>-- example.lua</span>
+<pre><code class="language-lua">-- example.lua
 
-<span>-- Import the C module.</span>
-<span>local</span> lua_fork <span>=</span> <span>require</span><span>(</span><span>"lua_fork"</span><span>)</span>
+-- Import the C module.
+local lua_fork = require("lua_fork")
 
-<span>-- Run the lua_fork() method.</span>
-<span>local</span> pid <span>=</span> lua_fork<span>.</span><span>lua_fork</span><span>(</span><span>)</span><span>;</span>
+-- Run the lua_fork() method.
+local pid = lua_fork.lua_fork();
 
-<span>-- If the pid is 0, that means the code being executed is within the child.</span>
-<span>if</span> pid <span>==</span> <span>0</span> <span>then</span>
-    <span>print</span><span>(</span><span>"This is the child process."</span><span>)</span>
-<span>-- Otherwise, the pid is that of the parent.</span>
-<span>else</span>
-    <span>print</span><span>(</span><span>"This is the parent process. The child PID is"</span><span>,</span> pid<span>)</span>
-<span>end</span>
+-- If the pid is 0, that means the code being executed is within the child.
+if pid == 0 then
+    print("This is the child process.")
+-- Otherwise, the pid is that of the parent.
+else
+    print("This is the parent process. The child PID is", pid)
+end
 </code></pre>
-<pre><code><span>/* lua_fork.c */</span>
+<pre><code class="language-c">/* lua_fork.c */
 
-<span>/* Necessary includes. */</span>
-<span><span>#</span><span>include</span> <span>&lt;lauxlib.h&gt;</span></span>
-<span><span>#</span><span>include</span> <span>&lt;lua.h&gt;</span></span>
-<span><span>#</span><span>include</span> <span>&lt;lualib.h&gt;</span></span>
-<span><span>#</span><span>include</span> <span>&lt;sys/types.h&gt;</span></span>
-<span><span>#</span><span>include</span> <span>&lt;unistd.h&gt;</span></span>
+/* Necessary includes. */
+#include &lt;lauxlib.h&gt;
+#include &lt;lua.h&gt;
+#include &lt;lualib.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
 
-<span>/* Function prototypes. */</span>
-<span>int</span> <span>lua_fork</span><span>(</span>lua_State <span>*</span>L<span>)</span><span>;</span>
-<span>int</span> <span>luaopen_lua_fork</span><span>(</span>lua_State <span>*</span>L<span>)</span><span>;</span>
+/* Function prototypes. */
+int lua_fork(lua_State *L);
+int luaopen_lua_fork(lua_State *L);
 
-<span>/*
+/*
 Calls the fork() subroutine from the POSIX operating system API.
 
 This function isn't available to Lua because it's a low-level operating system call. One of the purposes for allowing modules to be written in C is so that these types of functions can be made accessible.
-*/</span>
-<span>int</span>
-<span>lua_fork</span><span>(</span>lua_State <span>*</span>L<span>)</span>
-<span>{</span>
-    <span>/*
+*/
+int
+lua_fork(lua_State *L)
+{
+    /*
     fork() returns a pid_t type. According to the GNU libc manual, pid_t is just an int data type.
-    */</span>
-    <span>pid_t</span> pid <span>=</span> <span>(</span><span>int</span><span>)</span><span>fork</span><span>(</span><span>)</span><span>;</span>
+    */
+    pid_t pid = (int)fork();
 
-    <span>/* If the pid is less than 0, it failed. */</span>
-    <span>if</span> <span>(</span>pid <span>&lt;</span> <span>0</span><span>)</span>
-        <span>return</span> <span>luaL_error</span><span>(</span>L<span>,</span> <span>"fork() failed."</span><span>)</span><span>;</span>
+    /* If the pid is less than 0, it failed. */
+    if (pid &lt; 0)
+        return luaL_error(L, "fork() failed.");
 
-    <span>/* The pid is returned via the lua_State. */</span>
-    <span>lua_pushnumber</span><span>(</span>L<span>,</span> pid<span>)</span><span>;</span>
+    /* The pid is returned via the lua_State. */
+    lua_pushnumber(L, pid);
 
-    <span>/* The number of results we're giving back to Lua. */</span>
-    <span>return</span> <span>1</span><span>;</span>
-<span>}</span>
+    /* The number of results we're giving back to Lua. */
+    return 1;
+}
 
-<span>/*
+/*
 In order for Lua to recognize the entrypoint of the module, at least one function must be named according to this format: luaopen_&lt;module name&gt;. In the Lua program, you can import the module by writing require(&lt;module name&gt;).
-*/</span>
-<span>int</span>
-<span>luaopen_lua_fork</span><span>(</span>lua_State <span>*</span>L<span>)</span>
-<span>{</span>
-    <span>/* Create an array of functions which should be accessible from Lua. */</span>
-    luaL_Reg functions<span>[</span><span>]</span> <span>=</span> <span>{</span>
-        <span>{</span><span>"lua_fork"</span><span>,</span> lua_fork<span>}</span><span>,</span>
-        <span>{</span><span>NULL</span><span>,</span> <span>NULL</span><span>}</span>
-    <span>}</span><span>;</span>
+*/
+int
+luaopen_lua_fork(lua_State *L)
+{
+    /* Create an array of functions which should be accessible from Lua. */
+    luaL_Reg functions[] = {
+        {"lua_fork", lua_fork},
+        {NULL, NULL}
+    };
 
-    <span>/* Add those functions to the Lua state so they're accessible. */</span>
-    <span>luaL_newlib</span><span>(</span>L<span>,</span> functions<span>)</span><span>;</span>
+    /* Add those functions to the Lua state so they're accessible. */
+    luaL_newlib(L, functions);
 
-    <span>/* The number of results we're giving back to Lua. */</span>
-    <span>return</span> <span>1</span><span>;</span>
-<span>}</span>
+    /* The number of results we're giving back to Lua. */
+    return 1;
+}
 </code></pre>
-<h6>Running</h6>
-<pre><code>$ <span>make</span>
+<h4>Running</h4>
+<pre><code class="language-bash">$ make
 This is the parent process. The child PID is	XXXXX.0
 This is the child process.
 </code></pre>
-<h5>Blinking LED (Embedded Lua)</h5>
+<h3>Blinking LED (Embedded Lua)</h3>
 <p>To demonstrate how Lua can be used with embedded systems and microcontrollers, I will use MicroLua to create a small demonstration program which blinks the onboard LED of the Raspberry Pi Pico.</p>
 <p>Here is what you need to run this example:</p>
 <ul>
@@ -521,131 +521,131 @@ This is the child process.
 <li>You need a C/C++ cross-compiler which can compile to ARM targets (<code>arm-none-eabi</code>). The instructions for doing both will depend on your system.</li>
 <li>You also need to clone the MicroLua repository from GitHub, save it somewhere on your system, and add an environment variable named <code>MLUA_PATH</code> which points to it.</li>
 </ul>
-<h6>Code</h6>
-<pre><code><span># This is how you would install the dependencies on Gentoo, which is the Linux distribution I use.</span>
-$ <span>sudo</span> emerge <span>-av</span> dev-build/cmake sys-devel/crossdev app-eselect/eselect-repository
-$ <span>sudo</span> eselect repository create crossdev
-$ <span>sudo</span> crossdev <span>--stable</span> <span>--target</span> arm-none-eabi <span>-s4</span>
+<h4>Code</h4>
+<pre><code class="language-bash"># This is how you would install the dependencies on Gentoo, which is the Linux distribution I use.
+$ sudo emerge -av dev-build/cmake sys-devel/crossdev app-eselect/eselect-repository
+$ sudo eselect repository create crossdev
+$ sudo crossdev --stable --target arm-none-eabi -s4
 
-<span># Once you install the required programs, you can clone MicroLua's repository. I prefer to save source code in my ~/.local/src directory, however you can save it wherever you want.</span>
-$ <span>cd</span> ~/.local/src/
-$ <span>git</span> clone https://github.com/MicroLua/MicroLua
+# Once you install the required programs, you can clone MicroLua's repository. I prefer to save source code in my ~/.local/src directory, however you can save it wherever you want.
+$ cd ~/.local/src/
+$ git clone https://github.com/MicroLua/MicroLua
 
-<span># Add the environment variable to your shell's rc file. The following commands work if you're using Bash.</span>
-$ <span>echo</span> <span>'export MLUA_PATH=$HOME/.local/src/MicroLua'</span> <span>&gt;&gt;</span> ~/.bashrc
-$ <span>source</span> ~/.bashrc
+# Add the environment variable to your shell's rc file. The following commands work if you're using Bash.
+$ echo 'export MLUA_PATH=$HOME/.local/src/MicroLua' &gt;&gt; ~/.bashrc
+$ source ~/.bashrc
 
-<span># Create a directory named blink_example to store the example files.</span>
-$ <span>cd</span> ~/projects
-$ <span>mkdir</span> blink_example
+# Create a directory named blink_example to store the example files.
+$ cd ~/projects
+$ mkdir blink_example
 </code></pre>
 <p>For all of the files provided below, you need to save them to the <code>blink_example</code> folder.</p>
-<pre><code>$ <span>cd</span> blink_example
+<pre><code class="language-bash">$ cd blink_example
 
-<span># Save example files to the directory.</span>
+# Save example files to the directory.
 
-$ <span>ls</span>
+$ ls
 CMakeLists.txt blink
 </code></pre>
 <p>Copy the <code>mlua_import.cmake</code> file from the MicroLua repository into this <code>blink_example</code> folder. That file tells CMake where to find MicroLua on our system when it comes time to build the project.</p>
-<pre><code><span># CMakeLists.txt</span>
+<pre><code class="language-cmake"># CMakeLists.txt
 
-<span># Ensure we meet the minimum required version of CMake.</span>
-<span>cmake_minimum_required</span><span>(</span><span>VERSION</span> <span>3.24</span><span>)</span>
+# Ensure we meet the minimum required version of CMake.
+cmake_minimum_required(VERSION 3.24)
 
-<span># This is how our project knows where MicroLua is.</span>
-<span>include</span><span>(</span>mlua_import.cmake<span>)</span>
+# This is how our project knows where MicroLua is.
+include(mlua_import.cmake)
 
-<span># Define our project name, the languages being used, and their versions.</span>
-<span>project</span><span>(</span>MicroLua_examples C CXX ASM<span>)</span>
-<span>set</span><span>(</span><span>CMAKE_C_STANDARD</span> <span>11</span><span>)</span>
-<span>set</span><span>(</span><span>CMAKE_CXX_STANDARD</span> <span>17</span><span>)</span>
+# Define our project name, the languages being used, and their versions.
+project(MicroLua_examples C CXX ASM)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
-<span># Calls an initialization macro from MicroLua's build system.</span>
-<span>mlua_init</span><span>(</span><span>)</span>
+# Calls an initialization macro from MicroLua's build system.
+mlua_init()
 
-<span>macro</span><span>(</span>check_vars<span>)</span>
-    <span>foreach</span><span>(</span>var <span>${</span>ARGN<span>}</span><span>)</span>
-        <span>if</span><span>(</span><span>"<span><span>${</span><span>${</span><span>var</span><span>}</span><span>}</span></span>"</span> <span>STREQUAL</span> <span>""</span><span>)</span>
-            <span>file</span><span>(</span>RELATIVE_PATH rel <span>"<span><span>${</span><span>CMAKE_SOURCE_DIR</span><span>}</span></span>"</span>
-                 <span>"<span><span>${</span><span>CMAKE_CURRENT_SOURCE_DIR</span><span>}</span></span>"</span><span>)</span>
-            <span>message</span><span>(</span><span>"Skipping <span><span>${</span><span>rel</span><span>}</span></span>: <span><span>${</span><span>var</span><span>}</span></span> isn't set"</span><span>)</span>
-            <span>return</span><span>(</span><span>)</span>
-        <span>endif</span><span>(</span><span>)</span>
-    <span>endforeach</span><span>(</span><span>)</span>
-<span>endmacro</span><span>(</span><span>)</span>
+macro(check_vars)
+    foreach(var ${ARGN})
+        if("${${var}}" STREQUAL "")
+            file(RELATIVE_PATH rel "${CMAKE_SOURCE_DIR}"
+                 "${CMAKE_CURRENT_SOURCE_DIR}")
+            message("Skipping ${rel}: ${var} isn't set")
+            return()
+        endif()
+    endforeach()
+endmacro()
 
-<span># Preprocessor definitions.</span>
-<span>add_compile_definitions</span><span>(</span>
-    MLUA_MAIN_SHUTDOWN=<span>1</span>
-    MLUA_MAIN_TRACEBACK=<span>1</span>
-    PICO_ENTER_USB_BOOT_ON_EXIT=<span>1</span>
+# Preprocessor definitions.
+add_compile_definitions(
+    MLUA_MAIN_SHUTDOWN=1
+    MLUA_MAIN_TRACEBACK=1
+    PICO_ENTER_USB_BOOT_ON_EXIT=1
     PICO_STACK_SIZE=0x1000
-    PICO_USE_STACK_GUARDS=<span>1</span>
-<span>)</span>
+    PICO_USE_STACK_GUARDS=1
+)
 
-<span># Add the CMakeLists.txt file in the blink directory.</span>
-<span>add_subdirectory</span><span>(</span>blink<span>)</span>
+# Add the CMakeLists.txt file in the blink directory.
+add_subdirectory(blink)
 </code></pre>
-<pre><code>$ <span>ls</span> blink
+<pre><code class="language-bash">$ ls blink
 CMakeLists.txt blink.lua
 </code></pre>
-<pre><code><span># blink/CMakeLists.txt</span>
+<pre><code class="language-cmake"># blink/CMakeLists.txt
 
-<span># Create a new module based on the blink.lua file.</span>
-<span>mlua_add_lua_modules</span><span>(</span>mod_blink blink.lua<span>)</span>
+# Create a new module based on the blink.lua file.
+mlua_add_lua_modules(mod_blink blink.lua)
 
-<span># Ensure the required MicroLua libraries are included.</span>
-<span>target_link_libraries</span><span>(</span>mod_blink <span>INTERFACE</span>
+# Ensure the required MicroLua libraries are included.
+target_link_libraries(mod_blink INTERFACE
     mlua_mod_hardware.gpio
     mlua_mod_mlua.time
     mlua_mod_pico
-<span>)</span>
+)
 
-<span># Package the program into an executable named blink.</span>
-<span>mlua_add_executable</span><span>(</span>blink<span>)</span>
+# Package the program into an executable named blink.
+mlua_add_executable(blink)
 
-<span># Set the main module as the blink executable.</span>
-<span>target_compile_definitions</span><span>(</span>blink <span>PRIVATE</span>
+# Set the main module as the blink executable.
+target_compile_definitions(blink PRIVATE
     MLUA_MAIN_MODULE=blink
-<span>)</span>
+)
 
-<span># Ensure the required libraries are linked.</span>
-<span>target_link_libraries</span><span>(</span>blink <span>PRIVATE</span>
+# Ensure the required libraries are linked.
+target_link_libraries(blink PRIVATE
     mod_blink
     pico_stdlib
-<span>)</span>
+)
 </code></pre>
-<pre><code><span>-- blink/blink.lua</span>
+<pre><code class="language-lua">-- blink/blink.lua
 
-<span>-- Necessary includes.</span>
-<span>local</span> gpio <span>=</span> require <span>'hardware.gpio'</span>
-<span>local</span> time <span>=</span> require <span>'mlua.time'</span>
-<span>local</span> pico <span>=</span> require <span>'pico'</span>
+-- Necessary includes.
+local gpio = require 'hardware.gpio'
+local time = require 'mlua.time'
+local pico = require 'pico'
 
-<span>-- The pins we're using for our circuit.</span>
-<span>local</span> ONBOARD_LED_PIN <span>=</span> <span>25</span>
+-- The pins we're using for our circuit.
+local ONBOARD_LED_PIN = 25
 
-<span>-- The main method for the program.</span>
-<span>function</span> <span>main</span> <span>(</span><span>)</span>
-	<span>-- Initialize the pin of the onboard LED to be an output.</span>
-	gpio<span>.</span><span>init</span><span>(</span>ONBOARD_LED_PIN<span>)</span>
-    gpio<span>.</span><span>set_dir</span><span>(</span>ONBOARD_LED_PIN<span>,</span> gpio<span>.</span>OUT<span>)</span>
+-- The main method for the program.
+function main ()
+	-- Initialize the pin of the onboard LED to be an output.
+	gpio.init(ONBOARD_LED_PIN)
+    gpio.set_dir(ONBOARD_LED_PIN, gpio.OUT)
 
-	<span>-- Endless loop.</span>
-	<span>while</span> <span>true</span> <span>do</span>
-		<span>-- Turns on the pin, waits, turns off the pin, and then waits.</span>
-		gpio<span>.</span><span>put</span><span>(</span>ONBOARD_LED_PIN<span>,</span> <span>1</span><span>)</span>
-        time<span>.</span><span>sleep_for</span><span>(</span><span>500</span> <span>*</span> time<span>.</span>msec<span>)</span>
-        gpio<span>.</span><span>put</span><span>(</span>ONBOARD_LED_PIN<span>,</span> <span>0</span><span>)</span>
-        time<span>.</span><span>sleep_for</span><span>(</span><span>500</span> <span>*</span> time<span>.</span>msec<span>)</span>
-	<span>end</span>
-<span>end</span>
+	-- Endless loop.
+	while true do
+		-- Turns on the pin, waits, turns off the pin, and then waits.
+		gpio.put(ONBOARD_LED_PIN, 1)
+        time.sleep_for(500 * time.msec)
+        gpio.put(ONBOARD_LED_PIN, 0)
+        time.sleep_for(500 * time.msec)
+	end
+end
 </code></pre>
-<h6>Running</h6>
+<h4>Running</h4>
 <p>To compile this program as a binary executable that can be flashed to the Raspberry Pi Pico, run the following build commands:</p>
-<pre><code>$ cmake <span>-S</span> <span>.</span> <span>-B</span> build <span>-DPICO_BOARD</span><span>=</span>pico
-$ <span>make</span> <span>-j9</span> <span>-C</span> build
+<pre><code class="language-bash">$ cmake -S . -B build -DPICO_BOARD=pico
+$ make -j9 -C build
 </code></pre>
 <p>The program should now be compiled assuming there aren't any errors. Hold down the BOOTSEL button on the Raspberry Pi Pico and plug it into your computer. This makes the Raspberry Pi Pico appear as a flash drive, making it easy to copy the firmware to it. For this example, you need to copy the <code>build/blink.uf2</code> file to the Raspberry Pi Pico. Once the file is copied successfully, the onboard LED should start blinking.</p>
 
