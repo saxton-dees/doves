@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lua vs Other Languages</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/monokai-sublime.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
 </head>
 <body>
     <header>
@@ -146,9 +149,64 @@
                 </tr>
             </table>
         </section>
+        <section>
+            <h2>Operators</h2>
+            <p>Lua supports a variety of operators, including:</p>
+            <ul>
+                <li><strong>Arithmetic Operators:</strong> +, -, *, /, %, ^</li>
+                <li><strong>Relational Operators:</strong> ==, ~=, <, >, <=, >=</li>
+                <li><strong>Logical Operators:</strong> and, or, not</li>
+                <li><strong>Bitwise Operators:</strong> &, |, ~, <<, >></li>
+                <li><strong>Concatenation Operator:</strong> ..</li>
+                <li><strong>Length Operator:</strong> # (Used to get the length of a table or string)</li>
+            </ul>
+            <pre><code class="language-lua">
+                -- Arithmetic Operators
+                a, b = 10, 3
+                print(a + b)  -- Addition: 13
+                print(a - b)  -- Subtraction: 7
+                print(a * b)  -- Multiplication: 30
+                print(a / b)  -- Division: 3.3333...
+                print(a % b)  -- Modulus: 1
+                print(a ^ b)  -- Exponentiation: 1000
+                
+                -- Relational Operators
+                print(a == b)  -- false (10 is not equal to 3)
+                print(a ~= b)  -- true  (10 is not equal to 3)
+                print(a < b)   -- false (10 is not less than 3)
+                print(a > b)   -- true  (10 is greater than 3)
+                print(a <= b)  -- false (10 is not less than or equal to 3)
+                print(a >= b)  -- true  (10 is greater than or equal to 3)
+                
+                -- Logical Operators
+                x, y = true, false
+                print(x and y)  -- false (Both must be true)
+                print(x or y)   -- true  (At least one must be true)
+                print(not x)    -- false (Negation)
+                
+                -- Bitwise Operators (Lua 5.3+)
+                p, q = 5, 3  -- Binary: 5 = 101, 3 = 011
+                print(p & q)  -- Bitwise AND: 1 (001)
+                print(p | q)  -- Bitwise OR: 7  (111)
+                print(p ~ q)  -- Bitwise XOR: 6  (110)
+                print(p << 1) -- Left shift: 10 (1010)
+                print(p >> 1) -- Right shift: 2 (010)
+                
+                -- Concatenation Operator
+                str1, str2 = "Hello, ", "Lua!"
+                print(str1 .. str2)  -- "Hello, Lua!"
+                
+                -- Length Operator
+                tbl = {1, 2, 3, 4}
+                print(#tbl)  -- 4 (Number of elements in table)
+                msg = "Hello"
+                print(#msg)  -- 5 (Length of string)
+                </code></pre>
+        </section>
     </main>
 
     <footer>
+        <img src="soap_doves.png" alt="Doves Logo" class="footer-image">
         <p>CS 354 Language Website - Created by Team Doves</p>
     </footer>
 </body>

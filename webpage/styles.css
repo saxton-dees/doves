@@ -10,7 +10,7 @@ body {
 }
 
 header {
-    background-color: #444;
+    background-color: #1a1c1d;
     color: white;
     padding: 1em;
     text-align: center;
@@ -40,8 +40,18 @@ main {
 footer {
     text-align: center;
     padding: 10px;
-    background-color: #444;
+    background-color: #33373a;
     color: white;
     position: relative;
     width: 100%;
+}
+
+.footer-image {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: auto;
+    object-fit: cover;
+    mask-image: linear-gradient(to bottom, black, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, black, transparent);
 }
