@@ -4,7 +4,6 @@ CC = gcc
 CFLAGS = -O2 -fPIC -shared
 INCLUDES = /usr/include/lua5.1
 MODULE_NAME = lua_pid
-LUA = lua5.1
 
 # Targets
 .PHONY: all clean
