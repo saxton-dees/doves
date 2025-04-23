@@ -79,7 +79,11 @@ luaopen_lua_pid(lua_State *L)
     /*
     Add those functions to the Lua state so they're accessible.
     */
+#if LUA_VERSION_NUM == 501
     luaL_register(L, "lua_pid", functions);
+#elif LUA_VERSION_NUM >= 502
+    luaL_newlib(L, functions);
+#endif
 
     /*
     The number of results we're giving back to Lua.

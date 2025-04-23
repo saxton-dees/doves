@@ -62,6 +62,7 @@ else
             else
                 -- You can handle disconnection errors here
                 print("Server connection lost.")
+                os.execute(string.format("kill -9 %d", pid))
                 os.exit(1)
             end
         end

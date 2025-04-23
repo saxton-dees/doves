@@ -1,7 +1,7 @@
 local socket = require("socket")  -- Import LuaSocket library for networking
 
 -- Initialize the server
-local server = socket.bind("127.0.0.1", 8080)  -- Bind the server to localhost on port 8080
+local server = socket.bind("0.0.0.0", 8080)  -- Bind the server to localhost on port 8080
 server:settimeout(0)  -- Set the server to non-blocking mode to handle multiple clients efficiently
 print("Server started on port 8080...")  -- Notify that the server is running
 
