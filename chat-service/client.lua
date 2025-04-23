@@ -3,35 +3,37 @@ local lua_pid = require("lua_pid")  -- Your C wrapper for fork
 
 -- Connect to the server
 local client = socket.tcp()
-client:connect("127.0.0.1", 8080)
+client:connect("127.0.0.0", 8080)
 
-print("Connected to server. Type /send <message> to chat.")
+print("Connection to server successful!\nType a message and hit ENTER to chat!\nType /exit to disconnect.\n")
+
+-- Global variable to store the client's IP and port
+local prompt_prefix = "Unknown"
+
+-- Read the server's message containing the client's IP and port
+local server_message, err = client:receive()
+if server_message then
+    prompt_prefix = server_message  -- Save the IP and port to the global variable
+end
 
 -- Fork the process
 local pid = tonumber(lua_pid.lua_fork())
 
 -- Function to process user input commands
 function processInput(input)
-    -- Check if input starts with "/send" (indicating a message)
-    if string.sub(input, 1, 5) == "/send" then
-        local message = string.sub(input, 7)  -- Extract the message after "/send"
-        if message == "" then
-            print("Error: Message cannot be empty.")  -- Prevent sending empty messages
-        else
-            return { command = "send", message = message }  -- Return structured message
-        end
-    elseif input == "/exit" then
+    if input == "/exit" then
         return { command = "exit" }  -- Handle client disconnect request
+    elseif input ~= "" then
+        return { command = "send", message = input }  -- Treat any non-empty input as a message
     else
-        print("Error: Invalid command. Use /send <message> or /exit.")  -- Notify of invalid input
+        print("Error: Message cannot be empty.")  -- Prevent sending empty messages
     end
 end
-
 
 if pid == 0 then
     -- CHILD PROCESS: Handle user input
     while true do
-        io.write("> ")  -- Optional: prompt symbol
+        io.write("[" .. prompt_prefix .. "]: ")  -- Use the global prompt_prefix
         local input = io.read()
         local result = processInput(input)
 
@@ -57,10 +59,11 @@ else
         for _, client in ipairs(clients) do
             local message, err = client:receive()
             if not err then
-                io.write("\nBroadcast: " .. message .. "\n> ")  -- Print message, prompt again
+                io.write("\n" .. message .. "\n")  -- Print the received message
+                io.write("[" .. prompt_prefix .. "]: ")  -- Reprint the prompt using the global prompt_prefix
                 io.flush()
             else
-                -- You can handle disconnection errors here
+                -- Handle disconnection errors
                 print("Server connection lost.")
                 os.execute(string.format("kill -9 %d", pid))
                 os.exit(1)

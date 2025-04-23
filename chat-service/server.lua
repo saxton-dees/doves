@@ -16,6 +16,10 @@ function acceptConnection()
         table.insert(clients, client)  -- Add the client to the list of active connections
         print("New client connected!")  -- Notify that a new client has joined
         printAllClients(clients)
+
+        -- Send the client's IP and port back to them
+        local client_ip, client_port = client:getpeername()
+        client:send(tostring(client_ip) .. ":" .. tostring(client_port) .. "\n")
     end
 end
 
@@ -44,9 +48,12 @@ end
 
 -- Function to send a broadcast message to all connected clients
 function broadcastMessage(sender, message)
+    local sender_ip, sender_port = sender:getpeername()  -- Get sender's IP and port
+    local formatted_message = "[" .. tostring(sender_ip) .. ":" .. tostring(sender_port) .. "]: " .. message  -- Format the message with sender's info
+
     for _, client in ipairs(clients) do
         if client ~= sender then  -- Ensure sender doesn’t receive their own message
-            client:send("Broadcast: " .. message .. "\n")  -- Send the message to other clients
+            client:send(formatted_message .. "\n")  -- Send the formatted message to other clients
         end
     end
 end
