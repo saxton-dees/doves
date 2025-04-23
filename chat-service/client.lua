@@ -1,8 +1,14 @@
-local socket = require("socket")  -- Import LuaSocket for networking
+local socket = require("socket")
+local lua_pid = require("lua_pid")  -- Your C wrapper for fork
 
--- Establish connection to the server
-local client = socket.tcp()  -- Create a TCP client socket
-client:connect("127.0.0.1", 8080)  -- Connect to the server at localhost, port 8080
+-- Connect to the server
+local client = socket.tcp()
+client:connect("127.0.0.1", 8080)
+
+print("Connected to server. Type /send <message> to chat.")
+
+-- Fork the process
+local pid = tonumber(lua_pid.lua_fork())
 
 -- Function to process user input commands
 function processInput(input)
@@ -21,34 +27,43 @@ function processInput(input)
     end
 end
 
--- Function to check server for new messages
-function fetchServerMessages()
-    local clients = socket.select({client}, nil, 0.1)
+
+if pid == 0 then
+    -- CHILD PROCESS: Handle user input
+    while true do
+        io.write("> ")  -- Optional: prompt symbol
+        local input = io.read()
+        local result = processInput(input)
+
+        if result then
+            if result.command == "send" then
+                client:send(result.message .. "\n")
+            elseif result.command == "exit" then
+                print("Exiting...")
+                client:close()
+                os.exit(0)
+            end
+        end
+    end
+else
+    -- PARENT PROCESS: Handle server messages
+    print("Child PID", pid)
+    while true do
+        local waitpid_result = lua_pid.lua_waitpid(pid)
+        if waitpid_result == pid then
+            break
+        end
+        local clients = socket.select({client}, nil, 0.1)
         for _, client in ipairs(clients) do
             local message, err = client:receive()
             if not err then
-                print("Broadcast: " .. message .. "\n")
+                io.write("\nBroadcast: " .. message .. "\n> ")  -- Print message, prompt again
+                io.flush()
+            else
+                -- You can handle disconnection errors here
+                print("Server connection lost.")
+                os.exit(1)
             end
         end
-end
-
--- Inform user of chat usage
-print("Connected to server. Type /send <message> to chat.")
-
--- Main loop to handle user input and interaction
-while true do
-    fetchServerMessages()
-
-    local input = io.read()  -- Read user input from console
-    local result = processInput(input)  -- Process input command
-
-    if result then
-        if result.command == "send" then
-            client:send(result.message .. "\n")  -- Send formatted message to server
-        elseif result.command == "exit" then
-            print("Closing connection...")  -- Notify of disconnect
-            client:close()  -- Close client connection
-            break  -- Exit the loop
-        end
-    end    
+    end
 end
